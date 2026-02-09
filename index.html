@@ -3,346 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ДимАфиша</title>
+<title>ДимАфиша — расклейка афиш</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg-main: #060b18;
-  --bg-block: #0f1a35;
-
-  --blue: #2f80ff;
-  --blue-hover: #5fa0ff;
-
-  --tg: #229ED9;
-  --tg-hover: #4fb7e8;
-
-  --mail: #8b5cf6;
-  --mail-hover: #a78bfa;
-
-  --phone: #22c55e;
-  --phone-hover: #4ade80;
-
-  --text-main: #ffffff;
-  --text-muted: #aab2d5;
+  --bg-main:#050b1a;
+  --bg-card:rgba(255,255,255,0.05);
+  --blue:#2f6bff;
+  --cyan:#1dd3b0;
+  --violet:#7c7cff;
+  --text:#fff;
+  --text-muted:#b6c0ff;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+html{scroll-behavior:smooth}
+body{
+  background:radial-gradient(circle at top,#0a1435,var(--bg-main));
+  color:var(--text)
 }
 
-html {
-  scroll-behavior: smooth;
+section{padding:100px 20px}
+.section-box{max-width:1150px;margin:auto}
+
+h1{font-size:clamp(2.6rem,6vw,4rem);font-weight:800}
+h2{font-size:2.6rem;margin-bottom:35px;text-align:center}
+p{color:var(--text-muted);line-height:1.7}
+
+.btn{
+  padding:15px 30px;
+  border-radius:18px;
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s;
+  border:none;
+  cursor:pointer;
+  display:inline-block
+}
+.btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-cyan{background:var(--cyan);color:#000}
+.btn-violet{background:var(--violet);color:#000}
+
+/* CONTACT BUTTONS */
+.btn-telegram{background:linear-gradient(135deg,#2aabee,#229ed9);color:#fff}
+.btn-mail{background:linear-gradient(135deg,#6b7cff,#9a9cff);color:#000}
+.btn-phone{background:linear-gradient(135deg,#1dd3b0,#18bfa0);color:#000}
+.btn-telegram:active,.btn-mail:active,.btn-phone:active{transform:scale(.96)}
+
+nav{
+  position:fixed;top:0;width:100%;
+  background:rgba(5,11,26,.85);
+  backdrop-filter:blur(12px);
+  z-index:1000
+}
+.nav-inner{
+  max-width:1150px;margin:auto;
+  padding:16px 20px;
+  display:flex;justify-content:space-between;align-items:center
+}
+nav a{color:var(--text-muted);margin-left:20px;text-decoration:none;font-weight:600}
+nav a:hover{color:#fff}
+
+/* HERO */
+#hero{padding-top:150px;text-align:center}
+#hero p{max-width:800px;margin:30px auto 45px;font-size:1.2rem}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px
+}
+.service{
+  background:var(--bg-card);
+  padding:45px;
+  border-radius:28px;
+  text-align:center;
+  cursor:pointer;
+  transition:.35s
+}
+.service:hover{background:rgba(255,255,255,.08);transform:translateY(-8px)}
+.service h3{font-size:1.9rem;margin-bottom:18px}
+
+/* CLIENTS BIG */
+#clients{
+  background:linear-gradient(180deg,rgba(47,107,255,.08),transparent)
+}
+.clients-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:50px
+}
+.client-card{
+  background:rgba(255,255,255,.06);
+  padding:70px 90px;
+  border-radius:36px;
+  text-align:center;
+  transition:.35s
+}
+.client-card:hover{transform:translateY(-10px);background:rgba(255,255,255,.1)}
+.client-card img{max-width:220px;margin-bottom:30px}
+.client-card p{font-size:1.25rem}
+
+/* WORKS */
+.works{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px
+}
+.work{
+  background:var(--bg-card);
+  border-radius:26px;
+  overflow:hidden;
+  transition:.35s
+}
+.work:hover{transform:translateY(-8px)}
+.work img{width:100%;height:220px;object-fit:cover}
+.work p{padding:20px;text-align:center}
+
+/* FORM */
+form{display:grid;gap:16px;max-width:520px;margin:auto}
+input,textarea{
+  padding:15px;border-radius:16px;
+  border:none;outline:none
 }
 
-body {
-  background: linear-gradient(180deg, var(--bg-main), #0a1020);
-  color: var(--text-main);
+/* UP */
+#up{
+  position:fixed;bottom:30px;right:30px;
+  background:var(--blue);
+  width:50px;height:50px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer
 }
 
-/* ===== NAV ===== */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(10,16,32,0.85);
-  backdrop-filter: blur(12px);
-  z-index: 1000;
-}
-
-nav ul {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  padding: 18px;
-  list-style: none;
-}
-
-nav a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-nav a:hover {
-  color: var(--blue);
-}
-
-/* ===== SECTIONS ===== */
-section {
-  padding: 120px 10% 100px;
-}
-
-.section-box {
-  background: linear-gradient(145deg, #0f1a35, #0b1430);
-  border-radius: 26px;
-  padding: 70px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.45);
-  animation: fadeUp 1s ease;
-}
-
-h1 {
-  font-size: 3.2rem;
-  margin-bottom: 20px;
-}
-
-h2 {
-  font-size: 2.4rem;
-  margin-bottom: 50px;
-}
-
-p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  line-height: 1.7;
-}
-
-/* ===== HERO ===== */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-.hero-buttons {
-  margin-top: 40px;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* ===== BUTTONS ===== */
-.btn {
-  padding: 14px 30px;
-  border-radius: 32px;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.3s;
-  display: inline-block;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn:active {
-  transform: scale(0.97);
-}
-
-.btn-blue { background: var(--blue); }
-.btn-blue:hover { background: var(--blue-hover); }
-
-.btn-tg { background: var(--tg); }
-.btn-tg:hover { background: var(--tg-hover); }
-
-.btn-mail { background: var(--mail); }
-.btn-mail:hover { background: var(--mail-hover); }
-
-.btn-phone { background: var(--phone); }
-.btn-phone:hover { background: var(--phone-hover); }
-
-/* ===== SERVICES ===== */
-.services {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-
-.service-btn {
-  background: rgba(255,255,255,0.04);
-  padding: 50px 30px;
-  border-radius: 24px;
-  text-align: center;
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  color: white;
-  transition: 0.35s;
-}
-
-.service-btn span {
-  display: block;
-  margin-top: 12px;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--text-muted);
-}
-
-.service-btn:hover {
-  background: rgba(255,255,255,0.08);
-  transform: translateY(-8px);
-  color: var(--blue);
-}
-
-/* ===== REVIEWS ===== */
-.reviews {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-
-.review {
-  background: rgba(255,255,255,0.04);
-  padding: 35px;
-  border-radius: 22px;
-  color: var(--text-muted);
-}
-
-/* ===== FORM ===== */
-form {
-  display: grid;
-  gap: 22px;
-  margin-top: 30px;
-}
-
-input, textarea {
-  background: #0a132b;
-  border: 1px solid #1f2b55;
-  border-radius: 16px;
-  padding: 16px;
-  color: white;
-  font-size: 1rem;
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  border-color: var(--blue);
-}
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 40px;
-  color: var(--text-muted);
-}
-
-/* ===== UP BUTTON ===== */
-#up {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  padding: 14px 18px;
-  border-radius: 50%;
-  border: none;
-  background: var(--blue);
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#up:hover {
-  background: var(--blue-hover);
-}
-
-/* ===== ANIMATION ===== */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== MOBILE ===== */
-@media(max-width: 700px) {
-  h1 { font-size: 2.4rem; }
-  h2 { font-size: 2rem; }
-  section { padding: 100px 6% 80px; }
-  .section-box { padding: 50px 30px; }
-}
+footer{text-align:center;padding:40px;color:var(--text-muted)}
 </style>
 </head>
 
-<body id="top">
+<body>
 
-<!-- NAV -->
 <nav>
-  <ul>
-    <li><a href="#hero">Главная</a></li>
-    <li><a href="#services">Услуги</a></li>
-    <li><a href="#reviews">Отзывы</a></li>
-    <li><a href="#contact">Заявка</a></li>
-  </ul>
+  <div class="nav-inner">
+    <b>ДимАфиша</b>
+    <div>
+      <a href="#services">Услуги</a>
+      <a href="#clients">Клиенты</a>
+      <a href="#works">Работы</a>
+      <a href="#order">Заявка</a>
+    </div>
+  </div>
 </nav>
 
-<!-- HERO -->
-<section id="hero" class="hero">
+<section id="hero">
   <div class="section-box">
-    <h1>ДимАфиша</h1>
-    <p>Современная расклейка афиш и рекламы в Димитровграде. Минимализм, контроль и результат.</p>
+    <h1>Расклейка афиш<br>в Димитровграде</h1>
+    <p>
+      «ДимАфиша» — профессиональная расклейка афиш и наружной рекламы.
+      <br><br>
+      Намечается событие в Димитровграде?
+      <br>
+      Просто напишите нам и мы сделаем так чтобы о нем узнали.
+      <br><b>Быстро. Аккуратно. Эффективно.</b>
+    </p>
 
-    <div class="hero-buttons">
-      <a class="btn btn-tg" href="https://t.me/USERNAME">Telegram</a>
-      <a class="btn btn-mail" href="mailto:email@example.com">Почта</a>
-      <a class="btn btn-phone" href="tel:+79999999999">Телефон</a>
+    <div class="hero-buttons" style="margin-top:30px">
+      <a href="https://t.me/abdurazhmatat" class="btn btn-telegram">Telegram</a>
+      <a href="mailto:Mingazow.farit@yandex.ru" class="btn btn-mail">Почта</a>
+      <a href="tel:+79020010329" class="btn btn-phone">Телефон</a>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="section-box">
     <h2>Услуги</h2>
-
     <div class="services">
-      <a href="#contact" class="service-btn">
-        Расклейка афиш
-        <span>Аккуратно и в разрешённых местах</span>
-      </a>
-
-      <a href="#contact" class="service-btn">
-        Фотоотчёт
-        <span>Подтверждение каждой точки</span>
-      </a>
-
-      <a href="#contact" class="service-btn">
-        Маршруты по ТЗ
-        <span>Под задачи клиента</span>
-      </a>
+      <div class="service" onclick="location.href='#order'">
+        <h3>Расклейка афиш</h3>
+        <p>Разных размеров, в разрешенных местах, аккуратно, с фотоотчётом</p>
+      </div>
+      <div class="service" onclick="location.href='#order'">
+        <h3>Реклама мероприятий</h3>
+        <p>Концерты, вечеринки, события</p>
+      </div>
+      <div class="service" onclick="location.href='#order'">
+        <h3>Постоянные клиенты</h3>
+        <p>Рассматриваем как разовые обклейки, так и долгосрочное сотрудничество</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- REVIEWS -->
-<section id="reviews">
+<section id="clients">
   <div class="section-box">
-    <h2>Отзывы</h2>
-    <div class="reviews">
-      <div class="review">Алексей — быстро и качественно</div>
-      <div class="review">Марина — профессиональный подход</div>
-      <div class="review">Игорь — отличный результат</div>
+    <h2>Мы работали с</h2>
+    <div class="clients-wrap">
+      <div class="client-card">
+        <img src="images/big-game.jpg" alt="Большая игра">
+        <p>Агентство мероприятий<br><b>«Большая игра»</b></p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FORM -->
-<section id="contact">
+<section id="works">
+  <div class="section-box">
+    <h2>Наши работы</h2>
+    <div class="works">
+      <div class="work">
+        <img src="images/work1.jpg">
+        <p>Расклейка афиш спектакля</p>
+      </div>
+      <div class="work">
+        <img src="images/work2.jpg">
+        <p>Реклама концерта</p>
+      </div>
+      <div class="work">
+        <img src="images/work3.jpg">
+        <p>Продвижение мероприятия</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="order">
   <div class="section-box">
     <h2>Оставить заявку</h2>
-
-    <form action="https://formsubmit.co/EMAIL@example.com" method="POST">
+    <form action="https://formsubmit.co/Mingazow.farit@yandex.ru" method="POST">
       <input type="text" name="name" placeholder="Ваше имя" required>
       <input type="tel" name="phone" placeholder="Телефон" required>
-      <textarea name="message" placeholder="Комментарий"></textarea>
-      <button class="btn btn-blue" type="submit">Отправить заявку</button>
+      <textarea name="message" rows="4" placeholder="Комментарий"></textarea>
+      <button class="btn btn-blue">Отправить</button>
     </form>
   </div>
 </section>
 
-<footer>
-  © 2026 ДимАфиша
-</footer>
+<div id="up" onclick="window.scrollTo(0,0)">↑</div>
 
-<button id="up">↑</button>
-
-<script>
-document.getElementById("up").onclick = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-</script>
+<footer>© 2026 ДимАфиша</footer>
 
 </body>
 </html>
